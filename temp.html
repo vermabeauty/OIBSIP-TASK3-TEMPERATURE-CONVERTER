@@ -1,0 +1,96 @@
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <title>Temperature Converter</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Condensed:700,300,400"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="card">
+        <header>Temperature Converter</header>
+        <div>
+          <div class="temp-fields">
+            <h3 class="spacing">Celsius</h3>
+            <input id="celsius" value="0" />
+          </div>
+          <div class="temp-fields">
+            <h3 class="spacing">Fahrenheit</h3>
+            <input id="fahrenheit" value="0" />
+          </div>
+          <div class="temp-fields">
+            <h3 class="spacing">Kelvin</h3>
+            <input id="kelvin" value="0" />
+          </div>
+        </div>
+        <div>
+          <button id="submit" class="spacing" type="submit" value="submit">
+            Convert
+          </button>
+          <button id="reset" class="spacing" type="reset" value="reset">
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      var lastEdited = "celsius";
+
+      document.getElementById("submit").onclick = convert;
+      document.getElementById("reset").onclick = reset;
+      document.getElementById("celsius").onchange = function () {
+        lastEdited = "celsius";
+      };
+      document.getElementById("fahrenheit").onchange = function () {
+        lastEdited = "fahrenheit";
+      };
+      document.getElementById("kelvin").onchange = function () {
+        lastEdited = "kelvin";
+      };
+
+      function convert(temp) {
+        var celsius = document.getElementById("celsius").value;
+        celsius = parseFloat(celsius);
+
+        var fahrenheit = document.getElementById("fahrenheit").value;
+        fahrenheit = parseFloat(fahrenheit);
+
+        var kelvin = document.getElementById("kelvin").value;
+        kelvin = parseFloat(kelvin);
+        var conversionC;
+        var conversionF;
+        var conversionK;
+
+        if (lastEdited === "celsius") {
+          conversionF = (celsius * 9) / 5 + 32;
+          conversionK = celsius + 273;
+          document.getElementById("fahrenheit").value = Math.round(conversionF);
+          document.getElementById("kelvin").value = Math.round(conversionK);
+        } else if (lastEdited === "fahrenheit") {
+          conversionC = ((fahrenheit - 32) * 5) / 9;
+          conversionK = conversionC + 273;
+          document.getElementById("celsius").value = Math.round(conversionC);
+          document.getElementById("kelvin").value = Math.round(conversionK);
+        } else if (lastEdited === "kelvin") {
+          conversionC = kelvin - 273;
+          conversionF = (conversionC * 9) / 5 + 32;
+          document.getElementById("celsius").value = Math.round(conversionC);
+          document.getElementById("fahrenheit").value = Math.round(conversionF);
+        }
+        document.getElementById("celsius").innerHTML = conversionC;
+        document.getElementById("fahrenheit").innerHTML = conversionF;
+        document.getElementById("kelvin").innerHTML = conversionK;
+      }
+      function reset() {
+        document.getElementById("celsius").value = 0;
+        document.getElementById("fahrenheit").value = 0;
+        document.getElementById("kelvin").value = 0;
+      }
+    </script>
+  </body>
+</html>
